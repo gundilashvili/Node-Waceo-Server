@@ -4,7 +4,7 @@ const initialize = require("./controllers/index");
  
 const app = express(); 
 const cors = require('cors');
-require("dotenv").config();
+// require("dotenv").config();
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
