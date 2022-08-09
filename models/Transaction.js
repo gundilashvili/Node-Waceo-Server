@@ -6,6 +6,10 @@ const TransactionsSchema = new Schema({
         type: String,
         default: ''
     },
+    method: {
+        type: String,
+        default:''
+    },
     address : {
         type: String,
         default: ''

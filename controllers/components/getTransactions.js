@@ -20,8 +20,7 @@ const getTransactions = async (Moralis) => {
                 cursor: cursor
             }); 
             cursor = response.cursor;
-            items = [...response.result, ...items];
-
+            items = [...response.result, ...items]; 
         } while (cursor != "" && cursor != null);
          
         for(let i=0; i< items.length; i++){

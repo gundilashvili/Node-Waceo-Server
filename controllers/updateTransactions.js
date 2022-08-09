@@ -7,18 +7,27 @@ module.exports =  UpdatePrices = async ( Moralis ) => {
         if(response.success){
             if(response.transactions){  
                 
-                // Clear old data
-                await Transaction.deleteMany({}, function (err) {
-                    if (err) return {success: false, message: err.message};
-                    console.log("WACEO transactions - removed old transactions");
-                });
+               // Get transactions from database
+               const dbTransactions = await  Transaction.find(); 
+               let newTransactions = [];
+               for(let i of response.transactions){
+                    let exists = false;
+                    for(let b of dbTransactions){
+                        if(b.transaction_hash == i.transaction_hash){
+                            exists = true;
+                        }
+                    }
+                    if(!exists){
+                        newTransactions.push(i)
+                    }
+               }  
                 
                 // Insert latest data
-                Transaction.collection.insertMany(response.transactions,   (err, docs) => {
+                Transaction.collection.insertMany(newTransactions,   (err, docs) => {
                     if (err){  
                         return {success: false};
                     } else {
-                    console.log(`WACEO transactions - records successfully added (${response.transactions.length})`);
+                    console.log(`WACEO transactions - records successfully added (${newTransactions.length})`);
                         return {success: true};
                     }
                 }) 

@@ -3,7 +3,7 @@ const UpdatePrices = require("./updatePrices");
 const UpdateFunds = require("./updateFunds");
 const UpdateTreasury = require("./updateTreasury");
 const UpdateTransactions = require("./updateTransactions");
-
+const UpdateTransactionType = require("./updateTransactionType");
 
 const setData = async () => {
     try{ 
@@ -15,6 +15,10 @@ const setData = async () => {
         setTimeout(() => {
             UpdateTransactions(Moralis); 
         }, 130000);
+        setTimeout(() => {
+            UpdateTransactionType(Moralis);
+        }, 200000);
+       
     }catch(e){
         console.log(e);
     }
@@ -25,7 +29,7 @@ const looper =  () => {
     setData();
     setTimeout(() => {
         looper();
-    }, 300000);
+    }, 400000);
 }
 
  
