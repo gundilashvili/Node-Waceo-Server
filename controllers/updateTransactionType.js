@@ -3,12 +3,10 @@ const getAddresses = require("../constants/addresses");
  
 module.exports =  UpdateTransactionType = async ( Moralis ) => {
     try{ 
-        const dbTransactions =  await Transaction.find({method: null});
-        // console.log("dbTransactions", dbTransactions)
+        const dbTransactions =  await Transaction.find({method: null}); 
         const records = dbTransactions.slice(0,15);
     
-        const addresses = getAddresses(43113);
-        console.log("total records:", dbTransactions.length)
+        const addresses = getAddresses(43113); 
         if(records.length){
             for(let i of records){
                 if(i.transaction_hash){ 
@@ -18,11 +16,11 @@ module.exports =  UpdateTransactionType = async ( Moralis ) => {
                     })
                     let _method = "Transfer";
                     if(txn.hasOwnProperty("input")){
-                        if(txn.input.toLowerCase().includes("d89527f9")){
+                        if(txn.input.toLowerCase().includes("d89527f9") || txn.input.toLowerCase().includes("cc929d68")){
                             _method = "AUTO ALLOCATION MINT"
-                        }else if(txn.input.toLowerCase().includes("7dfbc54f")){
+                        }else if(txn.input.toLowerCase().includes("7dfbc54f") || txn.input.toLowerCase().includes("6263d3bb")){
                             _method = "SHIELDS UP EVENT"
-                        }else if(txn.input.toLowerCase().includes("165a1d27")){
+                        }else if(txn.input.toLowerCase().includes("165a1d27") || txn.input.toLowerCase().includes("54b808d2") ){
                             _method = "IDO EVENT"
                         }
                     }
