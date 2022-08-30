@@ -26,14 +26,30 @@ const getTransactions = async (Moralis) => {
         for(let i=0; i< items.length; i++){
             let value = ethers.utils.formatUnits(items[i].value.toString(), 'gwei');
             if(parseFloat(value) >= addresses.Big_Transfers_Amount){
-                const formattedValue = commas(parseFloat(value).toFixed(2), 2)
-                const d = new Date(items[i].block_timestamp.toString())
+                const formattedValue = commas(parseFloat(value).toFixed(2), 2);
+                const d = new Date(items[i].block_timestamp.toString());
+                let _from_address_label = null;
+                let _to_address_label = null;
+ 
+                for(let b of addresses.Waceo_Funds){ 
+                    if(b.address.toLowerCase() == items[i].from_address.toLowerCase()){
+                        _from_address_label = b.fund.replace(/_/g, ' ');
+                    }else if(b.address.toLowerCase() == items[i].to_address.toLowerCase()){
+                        _to_address_label = b.fund.replace(/_/g, ' ');
+                    }else if(addresses.Waceo.toLowerCase() == items[i].to_address.toLowerCase()){
+                        _to_address_label = 'WACEO (WACEO)';
+                    }else if(addresses.Waceo.toLowerCase() == items[i].from_address.toLowerCase()){
+                        _from_address_label = 'WACEO (WACEO)';
+                    }
+                }
+                items[i].from_address_label = _from_address_label;
+                items[i].to_address_label = _to_address_label;
                 items[i].formattedValue = formattedValue;
                 items[i].key = i;
                 items[i].date =  d.toDateString() ;
-                items[i].txn_url = `${addresses.Block_Explorer}tx/${items[i].transaction_hash}`
-                items[i].from_url = `${addresses.Block_Explorer}address/${items[i].from_address}`
-                items[i].to_url = `${addresses.Block_Explorer}address/${items[i].to_address}`
+                items[i].txn_url = `${addresses.Block_Explorer}tx/${items[i].transaction_hash}`;
+                items[i].from_url = `${addresses.Block_Explorer}address/${items[i].from_address}`;
+                items[i].to_url = `${addresses.Block_Explorer}address/${items[i].to_address}`;
                 items[i].waceo_url = `${addresses.Block_Explorer}address/${addresses.Waceo}`
                 transactions.push(items[i]);
             }

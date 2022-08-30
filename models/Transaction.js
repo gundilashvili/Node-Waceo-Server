@@ -22,7 +22,15 @@ const TransactionsSchema = new Schema({
         type: String,
         default: ''
     },
+    to_address_label : {
+        type: String,
+        default: ''
+    },
     from_address : {
+        type: String,
+        default: ''
+    },
+    from_address_label : {
         type: String,
         default: ''
     },

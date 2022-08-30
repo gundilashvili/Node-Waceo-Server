@@ -3,6 +3,7 @@ const Transaction = require("../models/Transaction");
 
 module.exports =  UpdatePrices = async ( Moralis ) => {
     try{ 
+        console.log("Updating transactions...");
         const response = await getTransactions(Moralis); 
         if(response.success){
             if(response.transactions){  
